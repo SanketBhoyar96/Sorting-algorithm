@@ -1,0 +1,90 @@
+import java.util.Arrays;
+
+/**
+ * coding
+ */
+public class coding {
+
+    public static void main(String[] args) {
+          int[] a={1,2,4,6,8,10,3,5,11,0};
+          int[] b={-1,-2,-4,-8,-16,-18,-20};
+
+          int a_leng=a.length;
+          int b_leng=b.length;
+          int c_leng=a.length+b_leng;
+
+          int[] c=new int[c_leng];
+          for(int i=0;i<a_leng;i++){
+              c[i]=a[i];
+          }
+          for(int i=0;i<b_leng;i++){
+              c[a_leng+i]=b[i];
+          }
+          for(int i=0;i<c_leng;i++){
+              System.out.println(c[i]+" ");
+          }
+
+        
+        mergesort(c,0,c.length-1);
+        print(c);
+
+    }
+    private static void mergesort(int[] c,int low,int high){
+        if(low<high){
+            int mid=low+(high-low)/2;
+            mergesort(c,low,mid);
+            mergesort(c,mid+1,high);
+            merge(c,low,mid,high);
+        }
+    }
+    private static void merge(int[] c,int low,int mid,int high) {
+        int m = mid - low + 1;
+        int n = high - mid;
+        int[] left = new int[m];
+        int[] right = new int[n];
+
+        int i = 0;
+        int j = low;
+        while (i < m) {
+            left[i] = c[j];
+            i++;
+            j++;
+        }
+        i = 0;
+        j = mid + 1;
+        while (i < n) {
+            right[i] = c[j];
+            i++;
+            j++;
+        }
+        i = 0;
+        j = 0;
+        int k = low;
+        while (i < m && j < n) {
+            if (left[i] < right[j]) {
+                c[k] = left[i];
+                i++;
+            } else {
+                c[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < m) {
+            c[k] = left[i];
+            i++;
+            k++;
+        }
+        while (j < n) {
+            c[k] = right[j];
+            j++;
+            k++;
+        }
+    }
+         private static void print(int[] c){
+        for(int a:c){
+            System.out.print(a+" ");
+        }
+
+        }
+    }
